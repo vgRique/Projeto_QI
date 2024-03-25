@@ -87,7 +87,7 @@ class ProductController extends Controller
             'nome' => 'required|string',
             'preco' => 'required|numeric',
             'categoria' => 'nullable|string',
-            'imagem' => 'image',
+            'imagem' => 'nullable|image',
             'id' => 'numeric'
 
         ]);
@@ -111,7 +111,9 @@ class ProductController extends Controller
         $product->nome = $request->input('nome');
         $product->preco = $request->input('preco');
         $product->categoria = $request->input('categoria');
+        if($imagem != null){
         $product->imagem = $request->input('imagem');
+        }
         $product->save();
 
         // Redireciona para a página de administração com uma mensagem de sucesso

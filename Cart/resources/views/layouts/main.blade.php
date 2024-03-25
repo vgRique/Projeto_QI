@@ -6,17 +6,23 @@
 
         <title>@yield('title')</title>
 
-    <a href="/">Produtos</a>
-    <a href="/cart">Carrinho</a>
-    <a href="/login">Login da adm</a>
-    <a href="/admin">Administração</a>
-    <a href="/register">Registar</a>
-   
+
+    <div>
+        <a href="/">Produtos</a>
+        <a href="/cart">Carrinho</a>
+        <a href="/login">Login da adm</a>
+        <a href="/admin">Administração</a>
+
+        @if (Auth::check())
+        <p>Username: {{ Auth::user()->username }}</p>
+        <a href="/logout">Logout</a>
+        @else
+        <a href="/register">Registar</a>
+        @endif
+    </div>
+
     <br></br>
-    @if (Auth::check())
-    <p>Username: {{ Auth::user()->username }}</p>
-    <a href="/logout">Logout</a>
-    @endif
+    
 
     <link rel="stylesheet" href="/css/styles.css">
     <script src="/js/scripts.js"></script>
