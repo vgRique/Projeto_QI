@@ -9,23 +9,22 @@ return new class extends Migration
     /**
      * Run the migrations.
      */
-    public function up(): void
+    public function up()
     {
         Schema::create('products', function (Blueprint $table) {
             $table->id();
             $table->string('nome');
-            $table->decimal('preco', 10, 2);
-            $table->string('categoria')->nullable();
-            $table->binary('imagem')->nullable();
+            $table->decimal('preco', 8, 2);
+            $table->string('categoria');
+            $table->string('imagem')->nullable();
             $table->timestamps();
         });
     }
 
-    /**
-     * Reverse the migrations.
-     */
-    public function down(): void
+    public function down()
     {
         Schema::dropIfExists('products');
     }
 };
+
+?>

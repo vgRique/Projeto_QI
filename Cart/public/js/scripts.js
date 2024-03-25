@@ -18,24 +18,11 @@ function clearFilters() {
     });
 }
 
-function addToCart(productName, price, message, image) {
-    const cart = JSON.parse(localStorage.getItem('cart')) || [];
-    cart.push({ name: productName, price: price, image: image, quantity: 1 });
-    localStorage.setItem('cart', JSON.stringify(cart));
-    // Exiba a mensagem de confirmação
-    alert(message);
-    updateCartCount();
-}
 
 document.addEventListener('DOMContentLoaded', function () {
     updateCartCount();
 });
 
-function updateCartCount() {
-    const cartCountElement = document.getElementById('cart-count');
-    const cart = JSON.parse(localStorage.getItem('cart')) || [];
-    //cartCountElement.innerText = cart.length;
-}
 
 //Script do carrinho
 
@@ -44,58 +31,6 @@ document.addEventListener('DOMContentLoaded', function () {
     updateTotalPrice();
 });
 
-function updateCartItems() {
-    const cartItemsContainer = document.getElementById('cart-items');
-    const cart = JSON.parse(localStorage.getItem('cart')) || [];
-
-    // Limpa o conteúdo atual do carrinho
-    if (cartItemsContainer != null) {
-        cartItemsContainer.innerHTML = '';
-    }
-
-    // Adiciona os itens do carrinho à página
-    cart.forEach(item => {
-        const cartItem = document.createElement('div');
-        cartItem.className = 'cart-item';
-        cartItem.innerHTML = `
-            <img src="${item.image}" alt="${item.name}">
-            <h2>${item.name}</h2>
-            <p>Preço: R$ ${item.price.toFixed(2)}</p>
-            <button onclick="decreaseQuantity('${item.name}')">-</button>
-            <span>${item.quantity}</span>
-            <button onclick="increaseQuantity('${item.name}')">+</button>
-            <button onclick="removeOneFromCart('${item.name}')">Remover</button>
-        `;
-        cartItemsContainer.appendChild(cartItem);
-    });
-
-    // Atualiza o contador do carrinho
-    updateCartCount();
-}
-
-
-function removeOneFromCart(productName) {
-    let cart = JSON.parse(localStorage.getItem('cart')) || [];
-
-    // Encontra o item no carrinho
-    const cartItem = cart.find(item => item.name === productName);
-
-    // Garante que a quantidade não seja menor que 1
-    if (cartItem.quantity > 1) {
-        // Diminui a quantidade
-        cartItem.quantity--;
-    } else {
-        // Remove o item do carrinho se a quantidade for 1
-        cart = cart.filter(item => item.name !== productName);
-    }
-
-    // Atualiza o carrinho no armazenamento local
-    localStorage.setItem('cart', JSON.stringify(cart));
-
-    // Atualiza a exibição dos itens do carrinho na página
-    updateCartItems();
-    updateTotalPrice();
-}
 
 function increaseQuantity(productName) {
     let cart = JSON.parse(localStorage.getItem('cart')) || [];
@@ -166,18 +101,7 @@ function updateCartCount() {
 
 //Script do admin-login
 
-function authenticateAdmin() {
-    const username = document.getElementById('admin-username').value;
-    const password = document.getElementById('admin-password').value;
 
-    // Verifica se o nome de usuário e senha correspondem aos administradores
-    if (username === 'admin' && password === 'admin') {
-        // Autenticação bem-sucedida, redireciona para a página de administração real
-        window.location.href = '/admin';
-    } else {
-        alert('Login de admin inválido');
-    }
-}
 
 document.addEventListener('DOMContentLoaded', function () {
     updateCartCount();
@@ -263,16 +187,6 @@ function saveProduct() {
     } else {
         alert('Preencha todos os campos corretamente.');
     }
-}
-
-function editProduct(productName) {
-    const products = getAdminProducts();
-    const productToEdit = products.find(p => p.name === productName);
-
-    // Preenche o formulário com os detalhes do produto
-    document.getElementById('product-name').value = productToEdit.name;
-    document.getElementById('product-price').value = productToEdit.price.toFixed(2);
-    document.getElementById('product-category').value = productToEdit.category;
 }
 
 function confirmDeleteProduct(productName) {

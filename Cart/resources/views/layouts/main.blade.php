@@ -8,9 +8,16 @@
 
     <a href="/">Produtos</a>
     <a href="/cart">Carrinho</a>
-    <a href="/admin-login">Login da adm</a>
+    <a href="/login">Login da adm</a>
     <a href="/admin">Administração</a>
-  
+    <a href="/register">Registar</a>
+   
+    <br></br>
+    @if (Auth::check())
+    <p>Username: {{ Auth::user()->username }}</p>
+    <a href="/logout">Logout</a>
+    @endif
+
     <link rel="stylesheet" href="/css/styles.css">
     <script src="/js/scripts.js"></script>
     </head>

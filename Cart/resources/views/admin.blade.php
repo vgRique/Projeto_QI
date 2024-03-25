@@ -23,7 +23,7 @@
         <!-- Adicione mais categorias conforme necessário -->
     </select>
     <input type="file" name="imagem" id="imagem">
-    <input type="submit" value="Enviar Imagem" name="submit">
+    
 
     <button onclick="saveProduct()">Salvar Produto</button>
 </div>
@@ -54,10 +54,28 @@
             };
             xhr.send(formData);
         }
-    </script>
+</script>
 
 <div id="admin-product-list">
-    <!-- Produtos administrativos serão exibidos aqui -->
+    <table>
+        <thead>
+            <tr>
+                <th>Nome</th>
+                <th>Preço</th>
+                <th>Categoria</th>
+                <th>Editar</th>
+                <th>Remover</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach($products as $product)
+            <tr>
+                <td>{{ $product->nome }}</td>
+                <td>{{ $product->preco }}</td>
+            </tr>
+            @endforeach
+        </tbody>
+    </table>
 </div>
 
 @endsection
