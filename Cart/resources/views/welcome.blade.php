@@ -22,7 +22,7 @@
     <div class="drink-card" data-category="{{ $product->categoria }}">
         <img src="/storage{{ Str::after($product->imagem, 'public') }}" alt="{{ $product->nome }}">
         <h2>{{ $product->nome }}</h2>
-        <p>{{ $product->descricao }}</p>
+        <p>R${{ $product->preco }}</p>
         <div id="{{ $product->nome }}-details" class="details" style="display: none;">
             <p>Descrição:</p>
             <p>{{ $product->descricao }}</p>

@@ -7,7 +7,7 @@
 <h1>Administração</h1>
 
 <div id="product-form">
-    <h2>Adicionar/Editar Produto</h2>
+    <h2>Adicionar Produto</h2>
     <label for="product-name">Nome do Produto:</label>
     <input type="text" id="product-name" required>
 
@@ -28,6 +28,40 @@
     <button onclick="saveProduct()">Salvar Produto</button>
 </div>
 
+
+<div class="container">
+        <h1>Lista de Produtos</h1>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Nome</th>
+                    <th>Preço</th>
+                    <th>Categoria</th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach($products as $product)
+                <tr>
+                    <td>{{ $product->nome }}</td>
+                    <td>{{ $product->preco }}</td>
+                    <td>{{ $product->categoria }}</td>
+                    <td>
+                        <a href="{{ route('products-edit', ['productid' => $product->id]) }}" class="btn btn-primary btn-margin">Editar</a>
+                        <form id="deleteForm"action="{{ route('products-remove') }}" method="POST" style="display: inline;">
+                            @csrf
+                            <input type="text" id="id_product" name="id_product" value="{{$product->id}}" hidden><br><br>
+
+                            <button type="submit" onclick=teste() class="deleteButton">Excluir</button>
+                        </form>
+                    </td>
+                </tr>
+                @endforeach
+            </tbody>
+        </table>
+    </div>
+
+    
 <script>
         function saveProduct() {
             var name = document.getElementById('product-name').value;
@@ -54,28 +88,7 @@
             };
             xhr.send(formData);
         }
+        
 </script>
-
-<div id="admin-product-list">
-    <table>
-        <thead>
-            <tr>
-                <th>Nome</th>
-                <th>Preço</th>
-                <th>Categoria</th>
-                <th>Editar</th>
-                <th>Remover</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach($products as $product)
-            <tr>
-                <td>{{ $product->nome }}</td>
-                <td>{{ $product->preco }}</td>
-            </tr>
-            @endforeach
-        </tbody>
-    </table>
-</div>
 
 @endsection
