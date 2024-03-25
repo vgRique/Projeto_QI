@@ -14,7 +14,7 @@ h1 {
 }
 
 .card {
-    display: flex;
+    display: -webkit-box;
     flex-wrap: wrap;
     justify-content: center;
 }
@@ -185,7 +185,7 @@ nav a:hover {
 /* Estilo para os cartões de bebidas */
 
 .card {
-    display: flex;
+    display: -webkit-box;
     flex-wrap: wrap;
     justify-content: space-around;
 }
