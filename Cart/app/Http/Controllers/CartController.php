@@ -38,29 +38,29 @@ class CartController extends Controller
 
 
     public function addCart(Request $request)
-{
-    // Verifica se o usuário está autenticado
-    $user = Auth::user();
-    if (!$user) {
-        return redirect('/login');
-        // Redireciona para a página de login
-        return redirect()->route('login')->with('error', 'Você precisa estar logado para adicionar itens ao carrinho.');
-    }
+    {
+        // Verifica se o usuário está autenticado
+        $user = Auth::user();
+        if (!$user) {
+            return redirect('/login');
+            // Redireciona para a página de login
+            return redirect()->route('login')->with('error', 'Você precisa estar logado para adicionar itens ao carrinho.');
+        }
 
-    // Verifica se o produto existe
-    $product = Product::find($request->input('id'));
-    if (!$product) {
-        return redirect()->route('cart')->with('error', 'Produto não encontrado.');
-    }
-    
-    // Adiciona o produto ao carrinho
-    $cart = new Cart();
-    $cart->user_id = $user->id;
-    $cart->product_id = $request->input('id');
-    $cart->save();
+        // Verifica se o produto existe
+        $product = Product::find($request->input('id'));
+        if (!$product) {
+            return redirect()->route('cart')->with('error', 'Produto não encontrado.');
+        }
+        
+        // Adiciona o produto ao carrinho
+        $cart = new Cart();
+        $cart->user_id = $user->id;
+        $cart->product_id = $request->input('id');
+        $cart->save();
 
-    return redirect()->route('cart')->with('success', 'Produto adicionado ao carrinho.');
-}
+        return redirect()->route('cart')->with('success', 'Produto adicionado ao carrinho.');
+    }
 
     public function removeFromCart($id)
     {
@@ -93,5 +93,21 @@ class CartController extends Controller
 
         return response()->json(['products' => $products]);
     }
+    public function clearCart()
+    {
+        // Verifica se o usuário está autenticado
+        $user = Auth::user();
+        if (!$user) {
+            return redirect('/login');
+            // Redireciona para a página de login
+            return redirect()->route('login')->with('error', 'Você precisa estar logado para limpar o carrinho.');
+        }
+
+        // Remove todos os itens do carrinho do usuário
+        Cart::where('user_id', $user->id)->delete();
+
+        return redirect()->route('cart')->with('success', 'Compra realizada com sucesso.');
+    }
 }
+
 ?>

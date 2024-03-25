@@ -18,7 +18,7 @@ Route::get('logout', [UserController::class, 'logout'])->name('logout');
 Route::post('register', [UserController::class, 'createUser'])->name('register');
 
 
-Route::get('', [ProductController::class, 'index']);
+Route::get('', [ProductController::class, 'index'])->name("index");
 Route::get('/register', [UserController::class, 'index']);
 Route::post('products', [ProductController::class, 'store']);
 Route::get('/products/{productid}', [ProductController::class, 'edit'])->name("products-edit");
@@ -28,3 +28,4 @@ Route::post('/products/remove/', [ProductController::class, 'delete'])->name("pr
 Route::put('/products/update/',  [ProductController::class, 'update'])-> name("products-update");
 
 Route::post('/cart/add/',[CartController::class, 'addCart'])->name('add-to-cart');
+Route::post('/comprar',[CartController::class, 'clearCart'])->name('comprar');

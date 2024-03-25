@@ -67,13 +67,13 @@ class UserController extends Controller
     $data['password'] = $data['password'];
 
     if (isset($data['is_admin'])) {
-        $data['is_admin'] = false;
+        $data['is_admin'] = $data['is_admin'];
     } else {
         $data['is_admin'] = false;
     }
 
     $user = User::create($data);
-    return redirect('login');
+    return redirect('login')->with('success', 'Usuário criado com sucesso.');
     //return response()->json(['message' => 'User created successfully', 'user' => $user], 201);
 }
 

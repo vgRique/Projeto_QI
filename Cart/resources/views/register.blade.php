@@ -4,11 +4,11 @@
 
 @section('content')
 
-<h1>Administração</h1>
-
+<h1>Registro</h1>
+<div class="register-user">
 <form method="POST" action="{{ route('register')}}">
     @csrf
-    <label for="username">Nome de Usuário:</label>
+    <label for="username">Usuário:</label>
     <input type="text" id="username" name="username" required><br><br>
 
     <label for="password">Senha:</label>
@@ -20,8 +20,9 @@
     <label for="is_admin">É Administrador?</label>
     <input type="checkbox" id="is_admin" name="is_admin" value="1"><br><br>
 
-    <button type="submit">Criar Usuário</button>
+    <button type="submit" class="btn btn-dark">Criar Usuário</button>
 </form>
+</div>
 
 
 <script>

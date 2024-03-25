@@ -4,10 +4,17 @@
 
 @section('content')
 
+
+
 <h1>Login da administração</h1>
 
 <div id="admin-content">
     <h2>Login de Admin</h2>
+
+    @if(session('success'))
+    <div class="alert alert-success">       
+    </div>
+@endif
     <form id="admin-login-form" method="POST" action="{{ route('login') }}">
         <label for="username">Usuário:</label>
         <input type="text" id="username" name="username" required>

@@ -8,6 +8,7 @@
 
 @php
     $productCounts = [];
+    $total = 0;
     if($cartItems){
     foreach($cartItems as $product){
             $productName = $product->nome;
@@ -19,6 +20,7 @@
                 $productCounts[$productName][1] = $productName;
                 $productCounts[$productName][2] = $productPreco;
                 $productCounts[$productName][3] = $productImagem;
+                $total += $productPreco;
                 
                 
                 
@@ -46,24 +48,35 @@
     </div>
 @endforeach
 @else
+<div class="cart-product" >
+
+
+@if(session('success'))
+    <div class="alert alert-success">
+        <p>{{ session('success') }}</p>
+    </div>
+@endif
 <p>Nenhum item no carrinho</p>
+</div>
 @endif
 
-<div class="checkout-form">
+<form class="checkout-form" action="/comprar" method="POST">
     <label for="name">Nome:</label>
     <input type="text" id="name" name="name" required>
 
     <label for="address">Endereço:</label>
     <input type="text" id="address" name="address" required>
 
+    @csrf
     <label for="payment">Meio de Pagamento:</label>
     <select id="payment" name="payment" required>
         <option value="credit">Cartão de Crédito</option>
         <option value="debit">Cartão de Débito</option>
     </select>
 
-    <p>Total: R$ <span id="total-price">0.00</span></p>
-    <button onclick="checkout()">Finalizar Compra</button>
-</div>
+    <p>Total: R$ <span id="total-price">{{$total}}</span></p>
+    <button type="submite" class="btn btn-primary">Finalizar Compra</button>
+</form>
+
 
 @endsection
